@@ -73,7 +73,7 @@ We are now ready to push the containerized application to our container hub (qua
 ```
 docker tag <CONTAINER_ID> quay.io/<YOUR_REPO>/socreate
 docker push quay.io/<YOUR_REPO>/socreate
-````
+```
 
 And don't forget to make your quay.io/<YOUR_REPO>/socreate repo _*PUBLIC*_
 
