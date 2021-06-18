@@ -44,7 +44,9 @@ docker ps
 docker exec -it  <CONTAINER_ID> /bin/bash
 ```
 
-Since the UI5 only runs on 127.0.0.1(which means only accessible by localhost), we can test it by tunnelling it with ngrok, run this inside the container.
+Since the UI5 only runs on 127.0.0.1(which means only accessible by localhost), we need to create a tunnel
+
+Option 1. Using ngrok, run this inside the container.
 
 ```
 ngrok http 8080
@@ -84,8 +86,8 @@ oc new-app quay.io/<YOUR_REPO>/socreate:latest --as-deployment-config
 
 ```
 
-*BUT WAIT!!* Things don't stop here!
-Since UI5 only does binds to _*localhost*_ (weird..), we need to add a proxy that can tunnel traffics to it. 
+Option 2. instead of using ngrok, we can deploy a container with an NGINX proxy server in the same pod where the application runs, this way it will redirect the external traffic to the application and we will have a permanent end point
+
 In your _socreate_ DeploymentConfig, add sidecar container
 
 ```
@@ -109,7 +111,8 @@ And that will start the proxy, and since this NGINX proxy starts on port 8081, m
 
 ```
 oc delete svc socreate
-oc expose dc socreate --port=8181
+oc delete route socreate
+oc expose dc socreate --port=8081
 oc expose svc socreate
 ```
 
