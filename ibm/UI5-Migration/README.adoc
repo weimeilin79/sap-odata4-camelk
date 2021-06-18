@@ -71,7 +71,7 @@ You should be able to access it by going to the http://xxxxx.ngrok.io from the p
 We are now ready to push the containerized application to our container hub (quay.io). 
 
 ```
-docker tag <CONTAINER_ID> quay.io/<YOUR_REPO>/socreate
+docker tag <IMAGE> quay.io/<YOUR_REPO>/socreate
 docker push quay.io/<YOUR_REPO>/socreate
 ```
 
