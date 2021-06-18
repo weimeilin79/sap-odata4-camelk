@@ -1,3 +1,35 @@
+# CREATING THE HTTP Bridge
+
+Under *ibm* namespace, 
+
+You will need to create a Kafka Cluster, called *cluster*, with topics  _so-approval_, _so-request_, _
+credit-check_
+
+And  YAML for starting up the HTTP brige with CORES setting
+
+```
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaBridge
+metadata:    
+  name: http
+  namespace: ibm
+spec:
+  bootstrapServers: 'cluster-kafka-bootstrap:9092'
+  http:
+    cors:
+      allowedMethods:
+        - GET
+        - POST
+      allowedOrigins:
+        - '*'
+    port: 8080
+  replicas: 1
+```
+
+
+Next, create consumer group for each topic, 
+
+```
 cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-approval-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
 {
     "name": "ibm",
@@ -8,9 +40,12 @@ cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.open
     "consumer.request.timeout.ms": 30000
 }
 EOF
+
+```
 Will return the base url
 http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm
 
+```
 cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-request-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
 {
     "name": "ibm",
@@ -21,9 +56,12 @@ cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.open
     "consumer.request.timeout.ms": 30000
 }
 EOF
+```
+
 Will return the base url
 http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm
 
+```
 cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/credit-check-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
 {
     "name": "ibm",
@@ -34,21 +72,29 @@ cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.open
     "consumer.request.timeout.ms": 30000
 }
 EOF
+```
 Will return the base url
 http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm
 
 
+And for each consumer group subscribe them to different topics
 
+```
 curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-approval"]}'
 curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-request"]}'
 curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["credit-check"]}'
+```
 
 
+Can try get and post data into Kafka topics
 
+```
 curl http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm/records -H 'accept: application/vnd.kafka.json.v2+json'
 curl http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm/records -H 'accept: application/vnd.kafka.json.v2+json'
 curl http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm/records -H 'accept: application/vnd.kafka.json.v2+json'
+```
 
+```
 curl -X POST \
   http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/topics/credit-check \
   -H 'content-type: application/vnd.kafka.json.v2+json' \
@@ -60,52 +106,4 @@ curl -X POST \
         }
     ] 
 }'
-
-
-====
-
-
-cat << EOF | curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-approval-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
-{
-    "name": "ibm",
-    "format": "json",
-    "auto.offset.reset": "earliest",
-    "enable.auto.commit": false,
-    "fetch.min.bytes": 1024,
-    "consumer.request.timeout.ms": 30000
-}
-EOF
-Will return the base url
-http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm
-
-cat << EOF | curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-request-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
-{
-    "name": "ibm",
-    "format": "json",
-    "auto.offset.reset": "earliest",
-    "enable.auto.commit": false,
-    "fetch.min.bytes": 1024,
-    "consumer.request.timeout.ms": 30000
-}
-EOF
-Will return the base url
-http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm
-
-cat << EOF | curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/credit-check-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
-{
-    "name": "ibm",
-    "format": "json",
-    "auto.offset.reset": "earliest",
-    "enable.auto.commit": false,
-    "fetch.min.bytes": 1024,
-    "consumer.request.timeout.ms": 30000
-}
-EOF
-Will return the base url
-http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm
-
-
-
-curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-approval"]}'
-curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-request"]}'
-curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["credit-check"]}'
+```

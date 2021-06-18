@@ -1,0 +1,16 @@
+# Installing Camel K function & Microservices
+
+Make sure you have Camel K operator installed on Openshift
+
+
+To run the microserice that gets SO, Line Items and Customer from SAP 
+
+```
+kamel run SapOdata.java
+```
+
+To run the function that does credit check (always return true)
+
+```
+kamel run CreditCheck.java
+```

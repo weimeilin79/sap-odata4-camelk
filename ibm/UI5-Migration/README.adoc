@@ -36,7 +36,7 @@ We can now build the docker image, and run it locally.
 ```
 docker build . -t socreate
 docker run -d -p 8080:8080 socreate 
-````
+```
 
 Get the container id, and ssh into the running instance
 ```
@@ -94,7 +94,7 @@ In your _socreate_ DeploymentConfig, add sidecar container
 spec:
       containers:
         - name: nginx
-          image: quay.io/<YOUR_REPO>/nginx-sidecar
+          image: quay.io/weimei79/nginx-sidecar
           ports:
             - containerPort: 8081
               protocol: TCP
