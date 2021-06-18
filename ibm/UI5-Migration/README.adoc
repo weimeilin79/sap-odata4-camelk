@@ -109,7 +109,7 @@ And that will start the proxy, and since this NGINX proxy starts on port 8081, m
 
 ```
 oc delete svc socreate
-oc expose dc socreate --port=8181
+oc expose dc socreate --port=8081
 oc expose svc socreate
 ```
 
