@@ -1,0 +1,32 @@
+---
+openapi: 3.0.2
+info:
+  title: ibm-sap-creditcheck
+  version: 1.0.0
+paths:
+  /creditcheck:
+    get:
+      parameters:
+      - name: soid
+        description: ""
+        schema: {}
+        in: query
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/creditcheck'
+          description: Always True
+      operationId: creditcheck
+components:
+  schemas:
+    creditcheck:
+      title: Root Type for CreditCheck
+      description: ""
+      type: object
+      properties:
+        result:
+          type: boolean
+      example:
+        result: true

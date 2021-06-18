@@ -1,0 +1,111 @@
+cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-approval-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
+{
+    "name": "ibm",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false,
+    "fetch.min.bytes": 1024,
+    "consumer.request.timeout.ms": 30000
+}
+EOF
+Will return the base url
+http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm
+
+cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-request-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
+{
+    "name": "ibm",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false,
+    "fetch.min.bytes": 1024,
+    "consumer.request.timeout.ms": 30000
+}
+EOF
+Will return the base url
+http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm
+
+cat << EOF | curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/credit-check-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
+{
+    "name": "ibm",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false,
+    "fetch.min.bytes": 1024,
+    "consumer.request.timeout.ms": 30000
+}
+EOF
+Will return the base url
+http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm
+
+
+
+curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-approval"]}'
+curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-request"]}'
+curl -X POST http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["credit-check"]}'
+
+
+
+curl http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm/records -H 'accept: application/vnd.kafka.json.v2+json'
+curl http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm/records -H 'accept: application/vnd.kafka.json.v2+json'
+curl http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm/records -H 'accept: application/vnd.kafka.json.v2+json'
+
+curl -X POST \
+  http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/topics/credit-check \
+  -H 'content-type: application/vnd.kafka.json.v2+json' \
+  -d '{
+    "records": [
+        {
+            "key": "10001",
+            "value": { "SO": {"example":"blah"}, "PO": {"example":"blah"}}
+        }
+    ] 
+}'
+
+
+====
+
+
+cat << EOF | curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-approval-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
+{
+    "name": "ibm",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false,
+    "fetch.min.bytes": 1024,
+    "consumer.request.timeout.ms": 30000
+}
+EOF
+Will return the base url
+http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm
+
+cat << EOF | curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/so-request-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
+{
+    "name": "ibm",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false,
+    "fetch.min.bytes": 1024,
+    "consumer.request.timeout.ms": 30000
+}
+EOF
+Will return the base url
+http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm
+
+cat << EOF | curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com/consumers/credit-check-group -H 'content-type: application/vnd.kafka.v2+json' -d @-
+{
+    "name": "ibm",
+    "format": "json",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": false,
+    "fetch.min.bytes": 1024,
+    "consumer.request.timeout.ms": 30000
+}
+EOF
+Will return the base url
+http://kafka-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm
+
+
+
+curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-approval-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-approval"]}'
+curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/so-request-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["so-request"]}'
+curl -X POST http://cores-bridge-ibm.apps.cluster-ef85.dynamic.opentlc.com:80/consumers/credit-check-group/instances/ibm/subscription -H 'content-type: application/vnd.kafka.v2+json' -d '{"topics": ["credit-check"]}'

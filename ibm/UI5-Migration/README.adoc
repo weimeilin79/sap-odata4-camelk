@@ -1,0 +1,118 @@
+The example file are under Ric's repo 
+https://github.com/rickgcv/shopping_cart
+
+The UI5 is basically an NODE JS app. We first create the docker file to containerize it. 
+
+```
+FROM node:16
+
+WORKDIR  /usr/src/socreate
+
+COPY package*.json ./
+
+RUN npm install
+RUN npm install ngrok -g
+
+COPY . .
+
+# Build frontend JS assets
+RUN npm run build
+
+EXPOSE 8080
+
+CMD [ "npm", "start" ]
+```
+
+And quickly found there are things missing to run it, IBM developer were running it in their local machine, with npx commend. But this was not given to us. We had to add the start script in order to make it run properly. in _*package.json*_
+
+```
+"scripts": {
+    "build": "ui5 build --clean-dest --include-task=generateManifestBundle generateCachebusterInfo",
+    "start": "ui5 serve -o index.html"
+  }
+```
+
+We can now build the docker image, and run it locally. 
+```
+docker build . -t socreate
+docker run -d -p 8080:8080 socreate 
+````
+
+Get the container id, and ssh into the running instance
+```
+docker ps
+docker exec -it  <CONTAINER_ID> /bin/bash
+```
+
+Since the UI5 only runs on 127.0.0.1(which means only accessible by localhost), we can test it by tunning it with ngrok, run this inside the container.
+
+```
+ngrok http 8080
+```
+
+You shoud be prompted with the infomation of the tunnel. 
+
+```
+ngrok by @inconshreveable                                                                                                                                        (Ctrl+C to quit)
+                                                                                                                                                                                 
+Session Status                online                                                                                                                                             
+Session Expires               1 hour, 59 minutes                                                                                                                                 
+Version                       2.3.40                                                                                                                                             
+Region                        United States (us)                                                                                                                                 
+Web Interface                 http://127.0.0.1:4040                                                                                                                              
+Forwarding                    http://xxxxx.ngrok.io -> http://localhost:8080                                                                                              
+Forwarding                    https://xxx.ngrok.io -> http://localhost:8080                                                                                             
+                                                                                                                                                                                 
+Connections                   ttl     opn     rt1     rt5     p50     p90                                                                                                        
+                              0       0       0.00    0.00    0.00    0.00       
+```
+
+You should be able to access it by going to the http://xxxxx.ngrok.io from the prompted info
+We are now ready to push the containerized application to our container hub (quay.io). 
+
+```
+docker tag <CONTAINER_ID> quay.io/<YOUR_REPO>/socreate
+docker push quay.io/<YOUR_REPO>/socreate
+````
+
+And don't forget to make your quay.io/<YOUR_REPO>/socreate repo _*PUBLIC*_
+
+Let's go ahead and deploy the UI5 application
+
+```
+oc new-app quay.io/<YOUR_REPO>/socreate:latest --as-deployment-config
+oc delete svc socreate
+oc expose dc socreate --port=8181
+oc expose svc socreate
+```
+
+BUT WAIT!! Things don't stop here
+Since UI5 only does binds to _*localhost*_ (weird..), we need to add a proxy that can tunnel traffics to it. 
+In your _socreate_ DeploymentConfig, add sidecar container
+
+```
+spec:
+      containers:
+        - name: nginx
+          image: quay.io/<YOUR_REPO>/nginx-sidecar
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+```
+
+And that will start the proxy, and since this NGINX proxy starts on port 8081, make sure you update all related setting on OpenShift. 
+
+```
+oc delete svc socreate
+oc expose dc socreate --port=8181
+oc expose svc socreate
+```
+
+And that should do the trick

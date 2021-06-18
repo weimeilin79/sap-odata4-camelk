@@ -1,0 +1,1275 @@
+---
+openapi: 3.0.2
+info:
+  title: ibm-sap
+  version: 1.0.0
+paths:
+  /fetch:
+    get:
+      parameters:
+      - name: SalesOrderID
+        description: Sales Order ID
+        schema:
+          type: string
+        in: query
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SOPOData'
+              examples:
+                "50000001Data":
+                  value:
+                    SO:
+                      d:
+                        __metadata:
+                          id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+                          uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+                          type: GWSAMPLE_BASIC.SalesOrder
+                        SalesOrderID: "0500000001"
+                        Note: "EPM DG: SO ID 0500000001"
+                        NoteLanguage: ""
+                        CustomerID: "0100000002"
+                        CustomerName: ITeL-Office
+                        CurrencyCode: USD
+                        GrossAmount: "33.68"
+                        NetAmount: "28.30"
+                        TaxAmount: "5.38"
+                        LifecycleStatus: C
+                        LifecycleStatusDescription: Closed
+                        BillingStatus: P
+                        BillingStatusDescription: Paid
+                        DeliveryStatus: D
+                        DeliveryStatusDescription: Delivered
+                        CreatedAt: /Date(1451602800000)/
+                        ChangedAt: /Date(1452207600000)/
+                        ToBusinessPartner:
+                          __deferred:
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToBusinessPartner
+                        ToLineItems:
+                          __deferred:
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToLineItems
+                    PO:
+                      d:
+                        results:
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000010"
+                          ProductID: PP-WP-1001
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000010"
+                          NoteLanguage: ""
+                          CurrencyCode: USD
+                          GrossAmount: "12.50"
+                          NetAmount: "10.50"
+                          TaxAmount: "2.00"
+                          DeliveryDate: /Date(1452207600000)/
+                          Quantity: "5"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000020"
+                          ProductID: WD-PC-1004
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000020"
+                          NoteLanguage: ""
+                          CurrencyCode: USD
+                          GrossAmount: "21.18"
+                          NetAmount: "17.80"
+                          TaxAmount: "3.38"
+                          DeliveryDate: /Date(1452207600000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToProduct"
+          description: Fetch SO & PO Data
+      operationId: fetch
+      summary: Fetch SO & PO Data
+      description: Fetch SO & PO Data
+    parameters:
+    - name: SalesOrderID
+      description: ""
+      schema: {}
+      in: query
+      required: true
+  /fetchall:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SOPOData'
+              examples:
+                "50000001Data":
+                  value:
+                  - SO:
+                      d:
+                        __metadata:
+                          id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+                          uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+                          type: GWSAMPLE_BASIC.SalesOrder
+                        SalesOrderID: "0500000001"
+                        Note: "EPM DG: SO ID 0500000001 Deliver as fast as possible"
+                        NoteLanguage: EN
+                        CustomerID: "0100000002"
+                        CustomerName: DelBont Industries
+                        CurrencyCode: EUR
+                        GrossAmount: "14602.49"
+                        NetAmount: "12271.00"
+                        TaxAmount: "2331.49"
+                        LifecycleStatus: "N"
+                        LifecycleStatusDescription: New
+                        BillingStatus: ""
+                        BillingStatusDescription: Initial
+                        DeliveryStatus: ""
+                        DeliveryStatusDescription: Initial
+                        CreatedAt: /Date(1623708000000)/
+                        ChangedAt: /Date(1623708000000)/
+                        ToBusinessPartner:
+                          __deferred:
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToBusinessPartner
+                        ToLineItems:
+                          __deferred:
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToLineItems
+                    PO:
+                      d:
+                        results:
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000010"
+                          ProductID: HT-1030
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000010"
+                          NoteLanguage: EN
+                          CurrencyCode: EUR
+                          GrossAmount: "547.40"
+                          NetAmount: "460.00"
+                          TaxAmount: "87.40"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000020"
+                          ProductID: HT-1031
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000020"
+                          NoteLanguage: EN
+                          CurrencyCode: GBP
+                          GrossAmount: "339.15"
+                          NetAmount: "285.00"
+                          TaxAmount: "54.15"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "1"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000030"
+                          ProductID: HT-1032
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000030"
+                          NoteLanguage: EN
+                          CurrencyCode: EUR
+                          GrossAmount: "821.10"
+                          NetAmount: "690.00"
+                          TaxAmount: "131.10"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000040"
+                          ProductID: HT-1035
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000040"
+                          NoteLanguage: EN
+                          CurrencyCode: USD
+                          GrossAmount: "949.62"
+                          NetAmount: "798.00"
+                          TaxAmount: "151.62"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000050"
+                          ProductID: HT-1036
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000050"
+                          NoteLanguage: EN
+                          CurrencyCode: CAD
+                          GrossAmount: "1023.40"
+                          NetAmount: "860.00"
+                          TaxAmount: "163.40"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000060"
+                          ProductID: HT-1037
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000060"
+                          NoteLanguage: EN
+                          CurrencyCode: MXN
+                          GrossAmount: "2927.40"
+                          NetAmount: "2460.00"
+                          TaxAmount: "467.40"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000070"
+                          ProductID: HT-1020
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000070"
+                          NoteLanguage: EN
+                          CurrencyCode: EUR
+                          GrossAmount: "1638.63"
+                          NetAmount: "1377.00"
+                          TaxAmount: "261.63"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "3"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000080"
+                          ProductID: HT-1021
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000080"
+                          NoteLanguage: EN
+                          CurrencyCode: MXN
+                          GrossAmount: "531.93"
+                          NetAmount: "447.00"
+                          TaxAmount: "84.93"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "3"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000090"
+                          ProductID: HT-1022
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000090"
+                          NoteLanguage: EN
+                          CurrencyCode: ARS
+                          GrossAmount: "3996.02"
+                          NetAmount: "3358.00"
+                          TaxAmount: "638.02"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000100"
+                          ProductID: HT-1023
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000100"
+                          NoteLanguage: EN
+                          CurrencyCode: USD
+                          GrossAmount: "1827.84"
+                          NetAmount: "1536.00"
+                          TaxAmount: "291.84"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "3"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')/ToProduct"
+                    COSTOMER:
+                      d:
+                        results:
+                        - __metadata:
+                            id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')
+                            type: GWSAMPLE_BASIC.Contact
+                          Address:
+                            __metadata:
+                              type: GWSAMPLE_BASIC.CT_Address
+                            City: Walldorf
+                            PostalCode: "69190"
+                            Street: Robert-Koch-Straße
+                            Building: "1"
+                            Country: DE
+                            AddressType: "02"
+                          ContactGuid: 0050568c-901d-1edb-b3b3-84c0c732411d
+                          BusinessPartnerID: "0100000000"
+                          Title: ""
+                          FirstName: Karl
+                          MiddleName: ""
+                          LastName: Müller
+                          Nickname: ""
+                          Initials: ""
+                          Sex: M
+                          PhoneNumber: "0622734567"
+                          FaxNumber: "0622734004"
+                          EmailAddress: customer-do.not.reply@sap.com
+                          Language: EN
+                          ToBusinessPartner:
+                            __deferred:
+                              uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')/ToBusinessPartner
+                        - __metadata:
+                            id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')
+                            type: GWSAMPLE_BASIC.Contact
+                          Address:
+                            __metadata:
+                              type: GWSAMPLE_BASIC.CT_Address
+                            City: St.-Leon Rot
+                            PostalCode: "68789"
+                            Street: Opelstraße
+                            Building: "6"
+                            Country: DE
+                            AddressType: "02"
+                          ContactGuid: 0050568c-901d-1edb-b3b3-84c0c732611d
+                          BusinessPartnerID: "0100000000"
+                          Title: ""
+                          FirstName: Harald
+                          MiddleName: Jens
+                          LastName: Gahn
+                          Nickname: ""
+                          Initials: ""
+                          Sex: M
+                          PhoneNumber: "0622746358"
+                          FaxNumber: "0622734004"
+                          EmailAddress: hjg@sap.com
+                          Language: EN
+                          ToBusinessPartner:
+                            __deferred:
+                              uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')/ToBusinessPartner
+                  - SO:
+                      d:
+                        __metadata:
+                          id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+                          uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+                          type: GWSAMPLE_BASIC.SalesOrder
+                        SalesOrderID: "0500000001"
+                        Note: "EPM DG: SO ID 0500000001 Deliver as fast as possible"
+                        NoteLanguage: EN
+                        CustomerID: "0100000002"
+                        CustomerName: DelBont Industries
+                        CurrencyCode: EUR
+                        GrossAmount: "14602.49"
+                        NetAmount: "12271.00"
+                        TaxAmount: "2331.49"
+                        LifecycleStatus: "N"
+                        LifecycleStatusDescription: New
+                        BillingStatus: ""
+                        BillingStatusDescription: Initial
+                        DeliveryStatus: ""
+                        DeliveryStatusDescription: Initial
+                        CreatedAt: /Date(1623708000000)/
+                        ChangedAt: /Date(1623708000000)/
+                        ToBusinessPartner:
+                          __deferred:
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToBusinessPartner
+                        ToLineItems:
+                          __deferred:
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToLineItems
+                    PO:
+                      d:
+                        results:
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000010"
+                          ProductID: HT-1030
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000010"
+                          NoteLanguage: EN
+                          CurrencyCode: EUR
+                          GrossAmount: "547.40"
+                          NetAmount: "460.00"
+                          TaxAmount: "87.40"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000020"
+                          ProductID: HT-1031
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000020"
+                          NoteLanguage: EN
+                          CurrencyCode: GBP
+                          GrossAmount: "339.15"
+                          NetAmount: "285.00"
+                          TaxAmount: "54.15"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "1"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000030"
+                          ProductID: HT-1032
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000030"
+                          NoteLanguage: EN
+                          CurrencyCode: EUR
+                          GrossAmount: "821.10"
+                          NetAmount: "690.00"
+                          TaxAmount: "131.10"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000040"
+                          ProductID: HT-1035
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000040"
+                          NoteLanguage: EN
+                          CurrencyCode: USD
+                          GrossAmount: "949.62"
+                          NetAmount: "798.00"
+                          TaxAmount: "151.62"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000050"
+                          ProductID: HT-1036
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000050"
+                          NoteLanguage: EN
+                          CurrencyCode: CAD
+                          GrossAmount: "1023.40"
+                          NetAmount: "860.00"
+                          TaxAmount: "163.40"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000060"
+                          ProductID: HT-1037
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000060"
+                          NoteLanguage: EN
+                          CurrencyCode: MXN
+                          GrossAmount: "2927.40"
+                          NetAmount: "2460.00"
+                          TaxAmount: "467.40"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000070"
+                          ProductID: HT-1020
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000070"
+                          NoteLanguage: EN
+                          CurrencyCode: EUR
+                          GrossAmount: "1638.63"
+                          NetAmount: "1377.00"
+                          TaxAmount: "261.63"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "3"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000080"
+                          ProductID: HT-1021
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000080"
+                          NoteLanguage: EN
+                          CurrencyCode: MXN
+                          GrossAmount: "531.93"
+                          NetAmount: "447.00"
+                          TaxAmount: "84.93"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "3"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000090"
+                          ProductID: HT-1022
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000090"
+                          NoteLanguage: EN
+                          CurrencyCode: ARS
+                          GrossAmount: "3996.02"
+                          NetAmount: "3358.00"
+                          TaxAmount: "638.02"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "2"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')/ToProduct"
+                        - __metadata:
+                            id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')"
+                            uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')"
+                            type: GWSAMPLE_BASIC.SalesOrderLineItem
+                          SalesOrderID: "0500000001"
+                          ItemPosition: "0000000100"
+                          ProductID: HT-1023
+                          Note: "EPM DG: SO ID 0500000001 Item 0000000100"
+                          NoteLanguage: EN
+                          CurrencyCode: USD
+                          GrossAmount: "1827.84"
+                          NetAmount: "1536.00"
+                          TaxAmount: "291.84"
+                          DeliveryDate: /Date(1624312800000)/
+                          Quantity: "3"
+                          QuantityUnit: EA
+                          ToHeader:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')/ToHeader"
+                          ToProduct:
+                            __deferred:
+                              uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')/ToProduct"
+                    COSTOMER:
+                      d:
+                        results:
+                        - __metadata:
+                            id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')
+                            type: GWSAMPLE_BASIC.Contact
+                          Address:
+                            __metadata:
+                              type: GWSAMPLE_BASIC.CT_Address
+                            City: Walldorf
+                            PostalCode: "69190"
+                            Street: Robert-Koch-Straße
+                            Building: "1"
+                            Country: DE
+                            AddressType: "02"
+                          ContactGuid: 0050568c-901d-1edb-b3b3-84c0c732411d
+                          BusinessPartnerID: "0100000000"
+                          Title: ""
+                          FirstName: Karl
+                          MiddleName: ""
+                          LastName: Müller
+                          Nickname: ""
+                          Initials: ""
+                          Sex: M
+                          PhoneNumber: "0622734567"
+                          FaxNumber: "0622734004"
+                          EmailAddress: customer-do.not.reply@sap.com
+                          Language: EN
+                          ToBusinessPartner:
+                            __deferred:
+                              uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')/ToBusinessPartner
+                        - __metadata:
+                            id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')
+                            uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')
+                            type: GWSAMPLE_BASIC.Contact
+                          Address:
+                            __metadata:
+                              type: GWSAMPLE_BASIC.CT_Address
+                            City: St.-Leon Rot
+                            PostalCode: "68789"
+                            Street: Opelstraße
+                            Building: "6"
+                            Country: DE
+                            AddressType: "02"
+                          ContactGuid: 0050568c-901d-1edb-b3b3-84c0c732611d
+                          BusinessPartnerID: "0100000000"
+                          Title: ""
+                          FirstName: Harald
+                          MiddleName: Jens
+                          LastName: Gahn
+                          Nickname: ""
+                          Initials: ""
+                          Sex: M
+                          PhoneNumber: "0622746358"
+                          FaxNumber: "0622734004"
+                          EmailAddress: hjg@sap.com
+                          Language: EN
+                          ToBusinessPartner:
+                            __deferred:
+                              uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')/ToBusinessPartner
+          description: Collection of SOs returned
+      operationId: fetchall
+      summary: Fetch ALL the Sales Order
+      description: Fetch ALL the Sales Order
+components:
+  schemas:
+    SOPOData:
+      title: Root Type for SOPOData
+      description: ""
+      type: object
+      properties:
+        SO:
+          type: object
+          properties:
+            d:
+              type: object
+              properties:
+                __metadata:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    uri:
+                      type: string
+                    type:
+                      type: string
+                SalesOrderID:
+                  type: string
+                Note:
+                  type: string
+                NoteLanguage:
+                  type: string
+                CustomerID:
+                  type: string
+                CustomerName:
+                  type: string
+                CurrencyCode:
+                  type: string
+                GrossAmount:
+                  type: string
+                NetAmount:
+                  type: string
+                TaxAmount:
+                  type: string
+                LifecycleStatus:
+                  type: string
+                LifecycleStatusDescription:
+                  type: string
+                BillingStatus:
+                  type: string
+                BillingStatusDescription:
+                  type: string
+                DeliveryStatus:
+                  type: string
+                DeliveryStatusDescription:
+                  type: string
+                CreatedAt:
+                  type: string
+                ChangedAt:
+                  type: string
+                ToBusinessPartner:
+                  type: object
+                  properties:
+                    __deferred:
+                      type: object
+                      properties:
+                        uri:
+                          type: string
+                ToLineItems:
+                  type: object
+                  properties:
+                    __deferred:
+                      type: object
+                      properties:
+                        uri:
+                          type: string
+        PO:
+          type: object
+          properties:
+            d:
+              type: object
+              properties:
+                results:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      __metadata:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          uri:
+                            type: string
+                          type:
+                            type: string
+                      SalesOrderID:
+                        type: string
+                      ItemPosition:
+                        type: string
+                      ProductID:
+                        type: string
+                      Note:
+                        type: string
+                      NoteLanguage:
+                        type: string
+                      CurrencyCode:
+                        type: string
+                      GrossAmount:
+                        type: string
+                      NetAmount:
+                        type: string
+                      TaxAmount:
+                        type: string
+                      DeliveryDate:
+                        type: string
+                      Quantity:
+                        type: string
+                      QuantityUnit:
+                        type: string
+                      ToHeader:
+                        type: object
+                        properties:
+                          __deferred:
+                            type: object
+                            properties:
+                              uri:
+                                type: string
+                      ToProduct:
+                        type: object
+                        properties:
+                          __deferred:
+                            type: object
+                            properties:
+                              uri:
+                                type: string
+        COSTOMER:
+          type: object
+          properties:
+            d:
+              type: object
+              properties:
+                results:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      __metadata:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          uri:
+                            type: string
+                          type:
+                            type: string
+                      Address:
+                        type: object
+                        properties:
+                          __metadata:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                          City:
+                            type: string
+                          PostalCode:
+                            type: string
+                          Street:
+                            type: string
+                          Building:
+                            type: string
+                          Country:
+                            type: string
+                          AddressType:
+                            type: string
+                      ContactGuid:
+                        type: string
+                      BusinessPartnerID:
+                        type: string
+                      Title:
+                        type: string
+                      FirstName:
+                        type: string
+                      MiddleName:
+                        type: string
+                      LastName:
+                        type: string
+                      Nickname:
+                        type: string
+                      Initials:
+                        type: string
+                      Sex:
+                        type: string
+                      PhoneNumber:
+                        type: string
+                      FaxNumber:
+                        type: string
+                      EmailAddress:
+                        type: string
+                      Language:
+                        type: string
+                      DateOfBirth:
+                        type: string
+                      ToBusinessPartner:
+                        type: object
+                        properties:
+                          __deferred:
+                            type: object
+                            properties:
+                              uri:
+                                type: string
+      example:
+        SO:
+          d:
+            __metadata:
+              id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+              uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')
+              type: GWSAMPLE_BASIC.SalesOrder
+            SalesOrderID: "0500000001"
+            Note: "EPM DG: SO ID 0500000001 Deliver as fast as possible"
+            NoteLanguage: EN
+            CustomerID: "0100000002"
+            CustomerName: DelBont Industries
+            CurrencyCode: EUR
+            GrossAmount: "14602.49"
+            NetAmount: "12271.00"
+            TaxAmount: "2331.49"
+            LifecycleStatus: "N"
+            LifecycleStatusDescription: New
+            BillingStatus: ""
+            BillingStatusDescription: Initial
+            DeliveryStatus: ""
+            DeliveryStatusDescription: Initial
+            CreatedAt: /Date(1623708000000)/
+            ChangedAt: /Date(1623708000000)/
+            ToBusinessPartner:
+              __deferred:
+                uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToBusinessPartner
+            ToLineItems:
+              __deferred:
+                uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderSet('0500000001')/ToLineItems
+        PO:
+          d:
+            results:
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000010"
+              ProductID: HT-1030
+              Note: "EPM DG: SO ID 0500000001 Item 0000000010"
+              NoteLanguage: EN
+              CurrencyCode: EUR
+              GrossAmount: "547.40"
+              NetAmount: "460.00"
+              TaxAmount: "87.40"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "2"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000010')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000020"
+              ProductID: HT-1031
+              Note: "EPM DG: SO ID 0500000001 Item 0000000020"
+              NoteLanguage: EN
+              CurrencyCode: GBP
+              GrossAmount: "339.15"
+              NetAmount: "285.00"
+              TaxAmount: "54.15"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "1"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000020')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000030"
+              ProductID: HT-1032
+              Note: "EPM DG: SO ID 0500000001 Item 0000000030"
+              NoteLanguage: EN
+              CurrencyCode: EUR
+              GrossAmount: "821.10"
+              NetAmount: "690.00"
+              TaxAmount: "131.10"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "2"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000030')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000040"
+              ProductID: HT-1035
+              Note: "EPM DG: SO ID 0500000001 Item 0000000040"
+              NoteLanguage: EN
+              CurrencyCode: USD
+              GrossAmount: "949.62"
+              NetAmount: "798.00"
+              TaxAmount: "151.62"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "2"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000040')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000050"
+              ProductID: HT-1036
+              Note: "EPM DG: SO ID 0500000001 Item 0000000050"
+              NoteLanguage: EN
+              CurrencyCode: CAD
+              GrossAmount: "1023.40"
+              NetAmount: "860.00"
+              TaxAmount: "163.40"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "2"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000050')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000060"
+              ProductID: HT-1037
+              Note: "EPM DG: SO ID 0500000001 Item 0000000060"
+              NoteLanguage: EN
+              CurrencyCode: MXN
+              GrossAmount: "2927.40"
+              NetAmount: "2460.00"
+              TaxAmount: "467.40"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "2"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000060')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000070"
+              ProductID: HT-1020
+              Note: "EPM DG: SO ID 0500000001 Item 0000000070"
+              NoteLanguage: EN
+              CurrencyCode: EUR
+              GrossAmount: "1638.63"
+              NetAmount: "1377.00"
+              TaxAmount: "261.63"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "3"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000070')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000080"
+              ProductID: HT-1021
+              Note: "EPM DG: SO ID 0500000001 Item 0000000080"
+              NoteLanguage: EN
+              CurrencyCode: MXN
+              GrossAmount: "531.93"
+              NetAmount: "447.00"
+              TaxAmount: "84.93"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "3"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000080')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000090"
+              ProductID: HT-1022
+              Note: "EPM DG: SO ID 0500000001 Item 0000000090"
+              NoteLanguage: EN
+              CurrencyCode: ARS
+              GrossAmount: "3996.02"
+              NetAmount: "3358.00"
+              TaxAmount: "638.02"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "2"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000090')/ToProduct"
+            - __metadata:
+                id: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')"
+                uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')"
+                type: GWSAMPLE_BASIC.SalesOrderLineItem
+              SalesOrderID: "0500000001"
+              ItemPosition: "0000000100"
+              ProductID: HT-1023
+              Note: "EPM DG: SO ID 0500000001 Item 0000000100"
+              NoteLanguage: EN
+              CurrencyCode: USD
+              GrossAmount: "1827.84"
+              NetAmount: "1536.00"
+              TaxAmount: "291.84"
+              DeliveryDate: /Date(1624312800000)/
+              Quantity: "3"
+              QuantityUnit: EA
+              ToHeader:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')/ToHeader"
+              ToProduct:
+                __deferred:
+                  uri: "https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/SalesOrderLineItemSet(SalesOrderID='0500000001',ItemPosition='0000000100')/ToProduct"
+        COSTOMER:
+          d:
+            results:
+            - __metadata:
+                id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')
+                uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')
+                type: GWSAMPLE_BASIC.Contact
+              Address:
+                __metadata:
+                  type: GWSAMPLE_BASIC.CT_Address
+                City: Walldorf
+                PostalCode: "69190"
+                Street: Robert-Koch-Straße
+                Building: "1"
+                Country: DE
+                AddressType: "02"
+              ContactGuid: 0050568c-901d-1edb-b3b3-84c0c732411d
+              BusinessPartnerID: "0100000000"
+              Title: ""
+              FirstName: Karl
+              MiddleName: ""
+              LastName: Müller
+              Nickname: ""
+              Initials: ""
+              Sex: M
+              PhoneNumber: "0622734567"
+              FaxNumber: "0622734004"
+              EmailAddress: customer-do.not.reply@sap.com
+              Language: EN
+              ToBusinessPartner:
+                __deferred:
+                  uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732411d')/ToBusinessPartner
+            - __metadata:
+                id: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')
+                uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')
+                type: GWSAMPLE_BASIC.Contact
+              Address:
+                __metadata:
+                  type: GWSAMPLE_BASIC.CT_Address
+                City: St.-Leon Rot
+                PostalCode: "68789"
+                Street: Opelstraße
+                Building: "6"
+                Country: DE
+                AddressType: "02"
+              ContactGuid: 0050568c-901d-1edb-b3b3-84c0c732611d
+              BusinessPartnerID: "0100000000"
+              Title: ""
+              FirstName: Harald
+              MiddleName: Jens
+              LastName: Gahn
+              Nickname: ""
+              Initials: ""
+              Sex: M
+              PhoneNumber: "0622746358"
+              FaxNumber: "0622734004"
+              EmailAddress: hjg@sap.com
+              Language: EN
+              ToBusinessPartner:
+                __deferred:
+                  uri: https://sapes5.sapdevcenter.com/sap/opu/odata/iwbep/GWSAMPLE_BASIC/ContactSet(guid'0050568c-901d-1edb-b3b3-84c0c732611d')/ToBusinessPartner
