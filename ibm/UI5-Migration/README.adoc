@@ -1,5 +1,5 @@
 The example file are under Ric's repo 
-https://github.com/rickgcv/shopping_cart
+https://github.com/rickgcv/shopping_cart or you can find it under this folder. 
 
 The UI5 is basically an NODE JS app. We first create the docker file to containerize it. 
 
@@ -113,4 +113,8 @@ oc expose dc socreate --port=8181
 oc expose svc socreate
 ```
 
-And that should do the trick
+And that should do the trick. Migrate and deploy all three applications, 
+- back_office_so
+- shopping_cart
+- so_approval
+and you are all set to go.
