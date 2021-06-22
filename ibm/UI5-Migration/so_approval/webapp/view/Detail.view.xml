@@ -1,0 +1,118 @@
+<mvc:View xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:mvc="sap.ui.core.mvc"
+	controllerName="SO_Approval.SO_Approval.controller.Detail" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<semantic:SemanticPage id="detailPage" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}" showFooter="true">
+		<semantic:titleHeading><Title text="{CustomerName}" level="H2"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<ObjectHeader xmlns="sap.m" number="{ path: 'GrossAmount', formatter: '.formatter.currencyValue' }" numberUnit="{CurrencyCode}" id="header0"
+				title="{SalesOrderID}" intro="{CustomerID}">
+				<statuses>
+					<ObjectStatus text="{LifecycleStatusDescription}" state="Success" id="status0"/>
+				</statuses>
+				<attributes>
+					<ObjectAttribute text="{Note}"/>
+					<!--<ObjectAttribute text="{ path: 'CreatedAt' }"/>-->
+					<ObjectAttribute title="{Created At}"
+								text=" { path: 'CreatedAt', type: 'sap.ui.model.type.Date', formatOptions: {style : 'long'}}" active="false"
+								visible="true"/>
+				</attributes>
+			</ObjectHeader>
+		</semantic:headerContent>
+		<semantic:content>
+			<IconTabBar id="idIconTabBarMulti" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter icon="sap-icon://hint" key="info">
+						<Table id="lineItemsList" width="auto" items="{ToLineItems}" updateFinished=".onListUpdateFinished"
+							noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+							<headerToolbar>
+								<Toolbar>
+									<Title id="lineItemsTitle" text="{detailView>/lineItemListTitle}" titleStyle="H3" level="H3"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column>
+									<Text text="{i18n>detailLineItemTableIDColumn}"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+									<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{ProductID}" text="{ItemPosition}"/>
+										<ObjectNumber number="{ path: 'Quantity', formatter: '.formatter.currencyValue' }" unit="{Note}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://group" key="people">
+						<VBox class="sapUiSmallMargin">
+							<f:SimpleForm id="SimpleFormDisplay354" editable="false" layout="ResponsiveGridLayout" title="Address" labelSpanXL="3" labelSpanL="3"
+								labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1"
+								columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<f:content>
+									<Label text="Name"/>
+									<Text id="nameText" text="{utilModel>/bpDetail/CompanyName}"/>
+									<Label text="Street/No."/>
+									<Text text="{utilModel>/bpDetail/Address/Street} {utilModel>/bpDetail/Address/StreetBuilding}"/>
+									<Label text="ZIP Code/City"/>
+									<Text text="{utilModel>/bpDetail/Address/PostalCode} {utilModel>/bpDetail/Address/City}"/>
+									<Label text="Country"/>
+									<Text id="countryText" text="{utilModel>/bpDetail/Address/Country}"/>
+								
+								</f:content>
+								
+							</f:SimpleForm>
+								<Button id="creditCheck" press="checkCredit" text="Check Credit"/>
+									<Text text="Press Check Credit to get info"/>
+						</VBox>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+			<!--<Table id="lineItemsList" width="auto" items="{ToLineItems}" updateFinished=".onListUpdateFinished" noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}">-->
+			<!--	<headerToolbar>-->
+			<!--		<Toolbar>-->
+			<!--			<Title id="lineItemsTitle" text="{detailView>/lineItemListTitle}" titleStyle="H3" level="H3"/>-->
+			<!--		</Toolbar>-->
+			<!--	</headerToolbar>-->
+			<!--	<columns>-->
+			<!--		<Column>-->
+			<!--			<Text text="{i18n>detailLineItemTableIDColumn}"/>-->
+			<!--		</Column>-->
+			<!--		<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">-->
+			<!--			<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>-->
+			<!--		</Column>-->
+			<!--	</columns>-->
+			<!--	<items>-->
+			<!--		<ColumnListItem>-->
+			<!--			<cells>-->
+			<!--				<ObjectIdentifier title="{ProductID}" text="{ItemPosition}"/>-->
+			<!--				<ObjectNumber number="{          path: 'Quantity',          formatter: '.formatter.currencyValue'         }" unit="{Note}"/>-->
+			<!--			</cells>-->
+			<!--		</ColumnListItem>-->
+			<!--	</items>-->
+			<!--</Table>-->
+		</semantic:content>
+		<!--Semantic ShareMenu Buttons-->
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onSendEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:closeAction>
+			<semantic:CloseAction id="closeColumn" press=".onCloseDetailPress"/>
+		</semantic:closeAction>
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction id="enterFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>
+		</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction id="exitFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+		<semantic:footerCustomActions>
+			<Button text="Approve" type="Accept" press="onPressApprove" enabled = "{utilModel>/approvEnabel/isEnable}"/>
+			<Button text="Reject" type="Reject" press="onPressReject"/>
+		</semantic:footerCustomActions>
+	</semantic:SemanticPage>
+</mvc:View>
